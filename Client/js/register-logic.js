@@ -6,5 +6,5 @@ $("#registerButton").click(() => {
   var repeatPassword = $("#repeatPassword").val();
   var promoCode = $("#promoCode").val();
 
-  alert(firstName + lastName+email);
+  alert(firstName + lastName + email + password + repeatPassword);
 });
