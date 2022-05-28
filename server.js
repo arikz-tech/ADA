@@ -8,11 +8,6 @@ app.use(express.static(__dirname)); //specifies the root directory from which to
 app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. extended: true specifies that req.body object will contain values of any type instead of just strings.
 app.use(bodyParser.json()); //for parsing json objects
 
-var test_data = [
-  ["user1", "password1"],
-  ["user2", "password2"],
-];
-
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/homePage.html"));
 });
@@ -32,7 +27,6 @@ app.post("/register", (req, res) => {
   user = req.body.user;
   console.log("check");
   console.log(JSON.stringify(user));
-  //res.send("user: " + req.body.user + " password: " + req.body.password);
 });
 
 app.get("/test_data_transfer", function (req, res) {
