@@ -3,6 +3,8 @@ var app = express();
 var port = process.env.PORT || 8080;
 var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
+const { createHash } = require('crypto');
+
 
 
 var dbURI= 'mongodb+srv://Ada:server1234@cluster0.6afznb2.mongodb.net/?retryWrites=true&w=majority';
@@ -57,17 +59,14 @@ app.get("/dashboard", function (req, res) {
 });
 app.post("/register", (req, res) => {
   newUser = req.body.user;
-  console.log("check");
-  console.log(JSON.stringify(newUser));
   const user= new User({
     firstname:newUser.firstName,
     lastname:newUser.lastName,
     email:newUser.email,
-    password:newUser.password,
+    password:createHash('sha256').update(newUser.password).digest('hex'),
     promocode:newUser.promoCode
   });
   user.save();
-  //res.send("user: " + req.body.user + " password: " + req.body.password);
 });
 
 app.get("/test_data_transfer", function (req, res) {
