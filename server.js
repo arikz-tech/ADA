@@ -3,12 +3,7 @@ var app = express();
 var port = process.env.PORT || 8080;
 var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
-<<<<<<< HEAD
-const { createHash } = require('crypto');
-
-=======
 const { createHash } = require("crypto");
->>>>>>> cb1aa20a (login logics)
 
 var dbURI =
   "mongodb+srv://Ada:server1234@cluster0.6afznb2.mongodb.net/?retryWrites=true&w=majority";
@@ -88,21 +83,12 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   newUser = req.body.user;
-<<<<<<< HEAD
-  const user= new User({
-    firstname:newUser.firstName,
-    lastname:newUser.lastName,
-    email:newUser.email,
-    password:createHash('sha256').update(newUser.password).digest('hex'),
-    promocode:newUser.promoCode
-=======
   const user = new User({
     firstname: newUser.firstName,
     lastname: newUser.lastName,
     email: newUser.email,
     password: createHash("sha256").update(newUser.password).digest("hex"),
     promocode: newUser.promoCode,
->>>>>>> cb1aa20a (login logics)
   });
   user.save();
 });
