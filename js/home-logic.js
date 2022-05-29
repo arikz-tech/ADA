@@ -1,21 +1,8 @@
-$("#loginButton").click(() => {
-  var loginUser = {
-    email: $("#email").val(),
-    password: $("#password").val(),
-  };
+$("#homepageName").text(getCookie("firstname") + " " + getCookie("lastname"));
 
-  $.post("http://localhost:8080/login", { loginUser }).done((data, status) => {
-    var user = data.user;
-    if (data.user === undefined) {
-      console.log(data.message);
-      return;
-    }
-
-    setCookie("connected", "true", 5);
-    setCookie("firstname", user.firstname, 5);
-    setCookie("lastname", user.lastname, 5);
-    window.location.href = "http://localhost:8080/";
-  });
+$("#logoutButton").click(() => {
+  alert("check");
+  setCookie("connected", "false", 5);
 });
 
 function setCookie(cname, cvalue, exdays) {
