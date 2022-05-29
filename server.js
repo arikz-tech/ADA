@@ -3,7 +3,18 @@ var app = express();
 var port = process.env.PORT || 8080;
 var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
+var nodemailer = require("nodemailer");
 const { createHash } = require("crypto");
+
+waitForVerifyUsers = [];
+
+var transporter = nodemailer.createTransport({
+  service: "yahoo",
+  auth: {
+    user: "adaserver2022@yahoo.com",
+    pass: "wgvtvslebuhorpkt",
+  },
+});
 
 var dbURI =
   "mongodb+srv://Ada:server1234@cluster0.6afznb2.mongodb.net/?retryWrites=true&w=majority";
@@ -36,7 +47,6 @@ const userSchema = new mongoose.Schema({
   },
   promocode: {
     type: String,
-    required: true,
   },
 });
 
@@ -90,11 +100,42 @@ app.post("/register", (req, res) => {
     password: createHash("sha256").update(newUser.password).digest("hex"),
     promocode: newUser.promoCode,
   });
-  user.save();
+  var token = createHash("sha256").update(newUser.email).digest("hex");
+  var link = "localhost:8080/emailVerification?token=" + token;
+
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: newUser.email,
+    subject: "Verification new user",
+    text: "In order to create your new user, click on this link " + link,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+
+  waitForVerifyUsers.push({ key: token, value: user });
 });
 
-app.get("/test_data_transfer", function (req, res) {
-  res.send(test_data.toString());
+app.get("/emailVerification", function (req, res) {
+  var token = req.query.token;
+  var user = waitForVerifyUsers.find((user) => user.key === token);
+  if (typeof user === "undefined") {
+    res.send("Verification Error");
+    return;
+  }
+  user.value.save();
+  var removeIndex = waitForVerifyUsers
+    .map((user) => {
+      return user.key;
+    })
+    .indexOf(token);
+  waitForVerifyUsers.splice(removeIndex, 1);
+  res.send("Successfuly created");
 });
 
 app.listen(port);
