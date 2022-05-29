@@ -74,9 +74,9 @@ app.post("/login", (req, res) => {
     var inputPassword = createHash("sha256").update(password).digest("hex");
 
     if (dbPassword === inputPassword) {
-      res.send({ message: "login succeed", user: result });
+      res.send({ message: "Login succeed", user: result });
     } else {
-      res.send({ message: "incorrect password", user: undefined });
+      res.send({ message: "Incorrect password", user: undefined });
     }
   });
 });
