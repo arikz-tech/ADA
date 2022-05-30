@@ -1,10 +1,12 @@
+const url = "localhost:8080";
+const { createHash } = require("crypto");
+
 var express = require("express");
 var app = express();
 var port = process.env.PORT || 8080;
 var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
-const { createHash } = require("crypto");
 
 waitForVerifyUsers = [];
 
@@ -101,7 +103,7 @@ app.post("/register", (req, res) => {
     promocode: newUser.promoCode,
   });
   var token = createHash("sha256").update(newUser.email).digest("hex");
-  var link = "localhost:8080/emailVerification?token=" + token;
+  var link = url + "/emailVerification?token=" + token;
 
   var mailOptions = {
     from: "adaserver2022@yahoo.com",
@@ -139,4 +141,4 @@ app.get("/emailVerification", function (req, res) {
 });
 
 app.listen(port);
-console.log("Server started! At http://localhost:" + port);
+console.log("Server started! At " + url + port);

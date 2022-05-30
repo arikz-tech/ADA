@@ -1,10 +1,12 @@
+const url = "localhost:8080";
+
 $("#loginButton").click(() => {
   var loginUser = {
     email: $("#email").val(),
     password: $("#password").val(),
   };
 
-  $.post("http://localhost:8080/login", { loginUser }).done((data, status) => {
+  $.post(url + "/login", { loginUser }).done((data, status) => {
     var user = data.user;
     if (data.user === undefined) {
       console.log(data.message);
@@ -14,7 +16,7 @@ $("#loginButton").click(() => {
     setCookie("connected", "true", 5);
     setCookie("firstname", user.firstname, 5);
     setCookie("lastname", user.lastname, 5);
-    window.location.href = "http://localhost:8080/";
+    window.location.href = url;
   });
 });
 

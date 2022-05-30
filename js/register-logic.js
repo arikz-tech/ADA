@@ -1,3 +1,5 @@
+const url = "localhost:8080";
+
 $("#registerButton").click(() => {
   user = {
     firstName: $("#firstName").val(),
@@ -8,7 +10,7 @@ $("#registerButton").click(() => {
     promoCode: $("#promoCode").val(),
   };
 
-  $.post("http://localhost:8080/register", {
+  $.post(url + "/register", {
     user,
   }).done((data) => {
     alert("Data Loaded:" + data);
