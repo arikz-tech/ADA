@@ -1,4 +1,4 @@
-const url = "localhost:8080";
+const url = "http://localhost:8080";
 const { createHash } = require("crypto");
 
 var express = require("express");
@@ -60,7 +60,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/log-in", function (req, res) {
-  res.sendFile(path.join(__dirname + "/log-in.html"));
+  res.sendFile(path.join(__dirname + "/login.html"));
 });
 
 app.get("/sign-up", function (req, res) {
@@ -71,6 +71,10 @@ app.get("/dashboard", function (req, res) {
   res.sendFile(path.join(__dirname + "/dashboard.html"));
 });
 
+app.get("/changePassword", function (req, res) {
+  res.sendFile(path.join(__dirname + "/change-password.html"));
+});
+
 app.post("/login", (req, res) => {
   var loginUser = req.body.loginUser;
   var email = loginUser.email;
@@ -78,7 +82,6 @@ app.post("/login", (req, res) => {
 
   User.findOne({ email: email }).then((result) => {
     if (result === null) {
-      console.log("check");
       res.send({ message: "User not found", user: undefined });
       return;
     }
@@ -142,22 +145,22 @@ app.get("/emailVerification", function (req, res) {
 });
 
 app.post("/forgotPassword", (req, res) => {
-  var email = req.body.user.email;
-
+  var email = req.body.email;
+  var token = createHash("sha256").update(email).digest("hex");
   User.findOne({ email: email }).then((result) => {
     if (result === null) {
       console.log("user not found");
       res.send({ message: "User not found", user: undefined });
       return;
     }
+    resetPasswordUsers.push({ key: token, value: result });
   });
 
-  var token = createHash("sha256").update(email).digest("hex");
-  var link = url + "/forgotPassword?token=" + token;
+  var link = url + "/changePassword?token=" + token;
 
   var mailOptions = {
     from: "adaserver2022@yahoo.com",
-    to: newUser.email,
+    to: email,
     subject: "Reset your password",
     text: "In order to rest you password, click on this link " + link,
   };
@@ -169,9 +172,35 @@ app.post("/forgotPassword", (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
+});
 
-  resetPasswordUsers.push({ key: token, value: user });
+app.post("/updatePassword", function (req, res) {
+  var token = req.body.token;
+  var password = req.body.password;
+
+  var user = resetPasswordUsers.find((user) => user.key === token);
+  if (typeof user === "undefined") {
+    res.send("Verification Error");
+    return;
+  }
+
+  User.updateOne(
+    { email: user.value.email },
+    {
+      $set: {
+        password: createHash("sha256").update(password).digest("hex"),
+      },
+    }
+  );
+
+  var removeIndex = resetPasswordUsers
+    .map((user) => {
+      return user.key;
+    })
+    .indexOf(token);
+  resetPasswordUsers.splice(removeIndex, 1);
+  res.send("Successfuly created");
 });
 
 app.listen(port);
-console.log("Server started! At " + url + port);
+console.log("Server started! At " + url);
