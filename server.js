@@ -9,6 +9,7 @@ var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
 
 waitForVerifyUsers = [];
+resetPasswordUsers = [];
 
 var transporter = nodemailer.createTransport({
   service: "yahoo",
@@ -138,6 +139,38 @@ app.get("/emailVerification", function (req, res) {
     .indexOf(token);
   waitForVerifyUsers.splice(removeIndex, 1);
   res.send("Successfuly created");
+});
+
+app.post("/forgotPassword", (req, res) => {
+  var email = req.body.user.email;
+
+  User.findOne({ email: email }).then((result) => {
+    if (result === null) {
+      console.log("user not found");
+      res.send({ message: "User not found", user: undefined });
+      return;
+    }
+  });
+
+  var token = createHash("sha256").update(email).digest("hex");
+  var link = url + "/forgotPassword?token=" + token;
+
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: newUser.email,
+    subject: "Reset your password",
+    text: "In order to rest you password, click on this link " + link,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+
+  resetPasswordUsers.push({ key: token, value: user });
 });
 
 app.listen(port);
