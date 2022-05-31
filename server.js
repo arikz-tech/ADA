@@ -172,6 +172,7 @@ app.post("/forgotPassword", (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
+  return;
 });
 
 app.post("/updatePassword", function (req, res) {
@@ -186,11 +187,9 @@ app.post("/updatePassword", function (req, res) {
 
   User.updateOne(
     { email: user.value.email },
-    {
-      $set: {
-        password: createHash("sha256").update(password).digest("hex"),
-      },
-    }
+    { password: createHash("sha256").update(password).digest("hex") },
+    { multi: true },
+    (err, numberAffected) => {}
   );
 
   var removeIndex = resetPasswordUsers
@@ -199,7 +198,7 @@ app.post("/updatePassword", function (req, res) {
     })
     .indexOf(token);
   resetPasswordUsers.splice(removeIndex, 1);
-  res.send("Successfuly created");
+  res.send("Password Successfully Changed");
 });
 
 app.listen(port);
