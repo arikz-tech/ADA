@@ -1,24 +1,5 @@
 const url = "http://localhost:8080";
 
-$("#loginButton").click(() => {
-  var loginUser = {
-    email: $("#email").val(),
-    password: $("#password").val(),
-  };
-
-  $.post(url + "/login", { loginUser }).done((data, status) => {
-    var user = data.user;
-    if (data.user === undefined) {
-      console.log(data.message);
-      return;
-    }
-
-    setCookie("connected", "true", 5);
-    setCookie("firstname", user.firstname, 5);
-    setCookie("lastname", user.lastname, 5);
-    window.location.href = url;
-  });
-});
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -42,3 +23,26 @@ function getCookie(cname) {
   }
   return "";
 }
+
+$("#login-form").submit((e) => {
+  e.preventDefault();
+  var loginUser = {
+    email: $("#email").val(),
+    password: $("#password").val(),
+  };
+  const captcha = document.querySelector('#g-recaptcha-response').value;
+  $.post(url + "/login", { loginUser,captcha }).done((data, status) => {
+    var user = data.user;
+    if (data.user === undefined) {
+      $("#login-msg").text(data.message)
+      console.log(data.message);
+      return;
+    }
+    setCookie("connected", "true", 5);
+    setCookie("firstname", user.firstname, 5);
+    setCookie("lastname", user.lastname, 5);
+    window.location.href = url;
+    return false
+  });
+});
+

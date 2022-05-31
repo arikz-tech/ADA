@@ -45,7 +45,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" id="login-form">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" aria-describedby="emailHelp"
@@ -63,10 +63,17 @@
                                             </div>
                                         </div>
                                         <hr>
+
+                                        <div
+                                        class="g-recaptcha"
+                                        data-sitekey="6Lc0PjIgAAAAAFEzcykTTYiUi6njwBW8VD2raNfM"></div><br>
+
+
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" id="loginButton" value="Login"><br>
+
+                                        <label id="login-msg" style="color:brown"></label>
                                     </form>
-                                    <button class="btn btn-primary btn-user btn-block" id="loginButton">
-                                        Login
-                                    </button>
+
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -97,6 +104,8 @@
     /<script src="js/sb-admin-2.min.js"></script>
 
     <script src="./js/login-logic.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 </body>
 

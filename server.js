@@ -7,6 +7,7 @@ var port = process.env.PORT || 8080;
 var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
+const fetch = require('node-fetch');
 
 waitForVerifyUsers = [];
 resetPasswordUsers = [];
@@ -75,11 +76,41 @@ app.get("/changePassword", function (req, res) {
   res.sendFile(path.join(__dirname + "/change-password.html"));
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   var loginUser = req.body.loginUser;
   var email = loginUser.email;
   var password = loginUser.password;
+  var captcha =req.body.captcha
+  
+  
 
+  if (!req.body.captcha){
+    res.send({ message:'Failed captcha verification' , user: undefined  });
+    return 
+  }
+  
+
+  // Secret key
+  const secretKey = '6Lc0PjIgAAAAADxlGUoca60XE8-qspODpbRJrO0t';
+
+  // Verify URL
+  const query = JSON.stringify({
+    secret: secretKey,
+    response: req.body.captcha,
+    remoteip: req.connection.remoteAddress
+  });
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}`;
+
+  // Make a request to verifyURL
+  const urlResult = await fetch(verifyURL).then(res => res.json());
+
+  // If not successful
+  if (urlResult.success !== undefined && !urlResult.success){
+    res.send({ message:'Failed captcha verification' , user: undefined  });
+    return
+  } 
+
+  //serching for the user in the db
   User.findOne({ email: email }).then((result) => {
     if (result === null) {
       res.send({ message: "User not found", user: undefined });
@@ -91,6 +122,7 @@ app.post("/login", (req, res) => {
 
     if (dbPassword === inputPassword) {
       res.send({ message: "Login succeed", user: result });
+      return
     } else {
       res.send({ message: "Incorrect password", user: undefined });
     }
