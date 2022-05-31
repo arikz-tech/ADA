@@ -1,9 +1,4 @@
-$("#homepageName").text(getCookie("firstname") + " " + getCookie("lastname"));
-
-$("#logoutButton").click(() => {
-  alert("check");
-  setCookie("connected", "false", 5);
-});
+const url = "http://localhost:8080";
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -26,4 +21,13 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+if (getCookie("connected") === "false") {
+  window.location.href = url + "/log-in";
+} else {
+  $("#homepageName").text(getCookie("firstname") + " " + getCookie("lastname"));
+  $("#logoutButton").click(() => {
+    setCookie("connected", "false", 5);
+  });
 }
