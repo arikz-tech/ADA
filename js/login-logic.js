@@ -35,7 +35,6 @@ $("#login-form").submit((e) => {
     var user = data.user;
     if (data.user === undefined) {
       $("#login-msg").text(data.message)
-      console.log(data.message);
       return;
     }
     setCookie("connected", "true", 5);

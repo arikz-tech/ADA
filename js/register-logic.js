@@ -1,6 +1,9 @@
 const url = "http://localhost:8080";
 
 $("#registerButton").click(() => {
+  $("#register-msg").text("");
+
+
   user = {
     firstName: $("#firstName").val(),
     lastName: $("#lastName").val(),
@@ -13,6 +16,13 @@ $("#registerButton").click(() => {
   $.post(url + "/register", {
     user,
   }).done((data) => {
-    alert("Data Loaded:" + data);
+    if(data.is_pass==false){
+      $("#register-msg").text(data.msg);
+      return
+    }
+
   });
 });
+
+
+

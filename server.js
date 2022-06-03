@@ -23,6 +23,7 @@ var transporter = nodemailer.createTransport({
 var dbURI =
   "mongodb+srv://Ada:server1234@cluster0.6afznb2.mongodb.net/?retryWrites=true&w=majority";
 var mongoose = require("mongoose");
+const { on } = require("events");
 var db = mongoose
   .connect(dbURI)
   .then((result) => console.log("DB connected"))
@@ -131,6 +132,40 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", (req, res) => {
   newUser = req.body.user;
+  password=newUser.password;
+  re_password=newUser.repeatPassword;
+  first_name=newUser.firstName;
+  last_name=newUser.lastName;
+  email=newUser.email;
+  console.log(email);  
+  var password_regex= /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;
+  var only_letters_regex =/^[a-zA-Z\s]+$/
+  var email_regex=  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+
+  if(!(only_letters_regex.test(first_name))){
+    res.send({msg:"First name should include only letters",is_pass:false})
+    return;
+  }
+
+  if(!(only_letters_regex.test(last_name))){
+    res.send({msg:"Last name should include only letters",is_pass:false})
+    return;
+  }
+
+  if(!email.match(email_regex)){
+    res.send({msg:"Please enter correct email",is_pass:false});
+    return;
+  }
+
+  if(!password.match(password_regex)){
+    res.send({msg:"Password must be at least 6 characters long and include at least 1 number",is_pass:false});
+    return;
+  }
+  if(password!==re_password){
+    res.send({msg:"Password dosent match",is_pass:false});
+    return;
+  }
+
   const user = new User({
     firstname: newUser.firstName,
     lastname: newUser.lastName,
