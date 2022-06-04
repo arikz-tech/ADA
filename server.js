@@ -130,7 +130,7 @@ app.post("/login", async (req, res) => {
   });
 });
 
-app.post("/register", (req, res) => {
+app.post("/register",async (req, res) => {
   newUser = req.body.user;
   password=newUser.password;
   re_password=newUser.repeatPassword;
@@ -157,6 +157,7 @@ app.post("/register", (req, res) => {
     return;
   }
 
+
   if(!password.match(password_regex)){
     res.send({msg:"Password must be at least 6 characters long and include at least 1 number",is_pass:false});
     return;
@@ -165,6 +166,30 @@ app.post("/register", (req, res) => {
     res.send({msg:"Password dosent match",is_pass:false});
     return;
   }
+
+  if (!req.body.captcha){
+    res.send({ msg:'Failed captcha verification' , is_pass: false  });
+    return 
+  }
+  
+  // Secret key
+  const secretKey = '6Lc0PjIgAAAAADxlGUoca60XE8-qspODpbRJrO0t';
+
+  // Verify URL
+  const query = JSON.stringify({
+    secret: secretKey,
+    response: req.body.captcha,
+    remoteip: req.connection.remoteAddress
+  });
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
+  // Make a request to verifyURL
+  const urlResult = await fetch(verifyURL).then(res => res.json());
+
+  // If not successful
+  if (urlResult.success !== undefined && !urlResult.success){
+    res.send({ msg:'Failed captcha verification' , is_pass: false  });
+    return
+  } 
 
   const user = new User({
     firstname: newUser.firstName,
@@ -192,6 +217,7 @@ app.post("/register", (req, res) => {
   });
 
   waitForVerifyUsers.push({ key: token, value: user });
+  res.send({ msg:'Mail was sent. Moving to login ' , is_pass: true  });
 });
 
 app.get("/emailVerification", function (req, res) {
