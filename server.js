@@ -33,6 +33,18 @@ app.use(express.static(__dirname)); //specifies the root directory from which to
 app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. extended: true specifies that req.body object will contain values of any type instead of just strings.
 app.use(bodyParser.json()); //for parsing json objects
 
+
+const pcode_schema=new mongoose.Schema({
+  promo_code: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+})
+
 const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -53,9 +65,32 @@ const userSchema = new mongoose.Schema({
   promocode: {
     type: String,
   },
+  phoneNumber:{
+    type:String,
+  },
+  Country:{
+    type:String,
+  },
+  city:{
+    type:String,
+  },
+  street:{
+    type:String,
+  },
+  zipCode:{
+    type:String,
+  },
+  Spare1:{
+    type:String,
+  },
+  Spare2:{
+    type:String,
+  },
+
 });
 
 const User = mongoose.model("Users", userSchema);
+const PromoCodeSchema=mongoose.model("PromoCode",pcode_schema);
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/homePage.html"));
@@ -137,10 +172,42 @@ app.post("/register",async (req, res) => {
   first_name=newUser.firstName;
   last_name=newUser.lastName;
   email=newUser.email;
-  console.log(email);  
+  promo_code=newUser.promoCode;
+
   var password_regex= /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;
   var only_letters_regex =/^[a-zA-Z\s]+$/
   var email_regex=  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+
+
+
+  //check if the promo_code that input is exsit.
+  promo_code_exsist=true;
+  if(promo_code != ""){
+    await PromoCodeSchema.findOne({ promo_code: promo_code }).then((result) => {
+      if (result === null) {
+        promo_code_exsist=false;
+        res.send({ msg: "Promo Code doesn't exsist.", is_pass: false });
+        return;
+      }});
+  }
+  if(!promo_code_exsist){
+    return
+  }
+
+
+//check if the email is alredy in use 
+  email_alredy_exsit=false;
+  await User.findOne({email: email }).then((result) => {
+    if (result !== null) {
+      email_alredy_exsit=true;
+      res.send({ msg: "Email alredy in use.", is_pass: false });
+      return;
+    }});
+  if(email_alredy_exsit){
+    return;
+  }
+
+
 
   if(!(only_letters_regex.test(first_name))){
     res.send({msg:"First name should include only letters",is_pass:false})
@@ -166,6 +233,7 @@ app.post("/register",async (req, res) => {
     res.send({msg:"Password dosent match",is_pass:false});
     return;
   }
+
 
   if (!req.body.captcha){
     res.send({ msg:'Failed captcha verification' , is_pass: false  });
