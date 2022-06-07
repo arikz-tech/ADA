@@ -112,6 +112,12 @@ app.get("/changePassword", function (req, res) {
   res.sendFile(path.join(__dirname + "/change-password.html"));
 });
 
+
+app.get('*', function(req, res) {
+  res.redirect('/404.html');
+});
+
+
 app.post("/login", async (req, res) => {
   var loginUser = req.body.loginUser;
   var email = loginUser.email;
