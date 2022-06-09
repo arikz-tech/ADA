@@ -7,6 +7,7 @@ $("#updateButton").click(() => {
   var rePasswordInput = $("#rePasswordInput").val();
 
   if (passwordInput != rePasswordInput) {
+    $("#error-msg-change-password").text("Passwords doesn't match")
     return;
   }
 
