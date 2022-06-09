@@ -39,6 +39,7 @@ $("#login-form").submit((e) => {
   $.post(url + "/login", { loginUser, captcha }).done((data, status) => {
     var user = data.user;
     if (data.user === undefined) {
+      grecaptcha.reset();
       $("#login-msg").text(data.message);
       return;
     }
