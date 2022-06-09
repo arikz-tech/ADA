@@ -311,17 +311,49 @@ app.get("/emailVerification", function (req, res) {
   res.send("Successfuly created");
 });
 
-app.post("/forgotPassword", (req, res) => {
+app.post("/forgotPassword", async (req, res) => {
   var email = req.body.email;
   var token = createHash("sha256").update(email).digest("hex");
-  User.findOne({ email: email }).then((result) => {
+  var user_not_found=false;
+ await User.findOne({ email: email }).then((result) => {
     if (result === null) {
-      console.log("user not found");
-      res.send({ message: "User not found", user: undefined });
+      user_not_found=true;
+      res.send({ message: "User not found", is_pass: false });
       return;
     }
     resetPasswordUsers.push({ key: token, value: result });
   });
+
+  if(user_not_found){
+    return;
+  }
+
+  
+  if (!req.body.captcha){
+    res.send({ message:'Failed captcha verification' , is_pass: false  });
+    return 
+  }
+  
+
+  // Secret key
+  const secretKey = '6Lc0PjIgAAAAADxlGUoca60XE8-qspODpbRJrO0t';
+
+  // Verify URL
+  const query = JSON.stringify({
+    secret: secretKey,
+    response: req.body.captcha,
+    remoteip: req.connection.remoteAddress
+  });
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
+
+  // Make a request to verifyURL
+  const urlResult = await fetch(verifyURL).then(res => res.json());
+
+  // If not successful
+  if (urlResult.success !== undefined && !urlResult.success){
+    res.send({ message:'Failed captcha verification' , is_pass: false  });
+    return
+  } 
 
   var link = url + "/changePassword?token=" + token;
 
@@ -339,6 +371,7 @@ app.post("/forgotPassword", (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
+  res.send({ message:'Verifaction mail sent to you' , is_pass: true  });
   return;
 });
 
