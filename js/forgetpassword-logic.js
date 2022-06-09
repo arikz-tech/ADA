@@ -7,6 +7,7 @@ $("#change-password-form").submit((e) => {
 
   $.post(url + "/forgotPassword", { email: emailInput, captcha }).done((data) => {
     if(data.is_pass==false){
+      grecaptcha.reset();
       $("#error-msg-label").text(data.message);
       return;
     }

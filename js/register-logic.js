@@ -16,6 +16,7 @@ $("#register-form").submit((e) => {
 
   $.post(url + "/register", {user,captcha}).done((data) => {
     if(data.is_pass==false){
+      grecaptcha.reset();
       $("#register-msg").text(data.msg);
       return;
     }
