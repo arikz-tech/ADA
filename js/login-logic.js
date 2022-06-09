@@ -1,5 +1,10 @@
 const url = "http://localhost:8080";
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
+if (urlParams.has("token")) {
+  alert("User successfully created");
+}
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -30,18 +35,17 @@ $("#login-form").submit((e) => {
     email: $("#email").val(),
     password: $("#password").val(),
   };
-  const captcha = document.querySelector('#g-recaptcha-response').value;
-  $.post(url + "/login", { loginUser,captcha }).done((data, status) => {
+  const captcha = document.querySelector("#g-recaptcha-response").value;
+  $.post(url + "/login", { loginUser, captcha }).done((data, status) => {
     var user = data.user;
     if (data.user === undefined) {
-      $("#login-msg").text(data.message)
+      $("#login-msg").text(data.message);
       return;
     }
     setCookie("connected", "true", 5);
     setCookie("firstname", user.firstname, 5);
     setCookie("lastname", user.lastname, 5);
     window.location.href = url;
-    return false
+    return false;
   });
 });
-
