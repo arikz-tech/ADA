@@ -1,4 +1,4 @@
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com/";
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();

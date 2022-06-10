@@ -1,8 +1,8 @@
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com/";
 
 $("#register-form").submit((e) => {
   e.preventDefault();
-  const captcha = document.querySelector('#g-recaptcha-response').value;
+  const captcha = document.querySelector("#g-recaptcha-response").value;
   $("#register-msg").text("");
 
   user = {
@@ -14,20 +14,16 @@ $("#register-form").submit((e) => {
     promoCode: $("#promoCode").val(),
   };
 
-  $.post(url + "/register", {user,captcha}).done((data) => {
-    if(data.is_pass==false){
+  $.post(url + "/register", { user, captcha }).done((data) => {
+    if (data.is_pass == false) {
       grecaptcha.reset();
       $("#register-msg").text(data.msg);
       return;
-    }
-    else if(data.is_pass==true){
-      alert(data.msg)
-      window.location.href = url+"/log-in"
+    } else if (data.is_pass == true) {
+      alert(data.msg);
+      window.location.href = url + "/log-in";
     }
 
     return false;
   });
 });
-
-
-

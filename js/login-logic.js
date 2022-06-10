@@ -1,7 +1,7 @@
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com/";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-var checkbox = document.getElementById('customCheck');
+var checkbox = document.getElementById("customCheck");
 
 if (urlParams.has("token")) {
   alert("User successfully created");
@@ -45,7 +45,7 @@ $("#login-form").submit((e) => {
       $("#login-msg").text(data.message);
       return;
     }
-  
+
     setCookie("connected", "true", 5);
     setCookie("email", user.email, 5);
     setCookie("firstname", user.firstname, 5);
