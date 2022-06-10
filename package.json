@@ -1,0 +1,30 @@
+{
+  "name": "ada",
+  "version": "1.0.0",
+  "description": "[SB Admin 2](https://startbootstrap.com/theme/sb-admin-2/) is an open source admin dashboard theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arikz-tech/ADA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arikz-tech/ADA/issues"
+  },
+  "homepage": "https://github.com/arikz-tech/ADA#readme"
+}
