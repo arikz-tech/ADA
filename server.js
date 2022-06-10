@@ -8,6 +8,7 @@ var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
 const fetch = require("node-fetch");
+var cookieParser = require('cookie-parser');
 
 waitForVerifyUsers = [];
 resetPasswordUsers = [];
@@ -32,6 +33,7 @@ var db = mongoose
 app.use(express.static(__dirname)); //specifies the root directory from which to serve static assets [images, CSS files and JavaScript files]
 app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. extended: true specifies that req.body object will contain values of any type instead of just strings.
 app.use(bodyParser.json()); //for parsing json objects
+app.use(cookieParser());
 
 const pcode_schema = new mongoose.Schema({
   promo_code: {
@@ -109,6 +111,14 @@ app.get("/dashboard", function (req, res) {
 app.get("/changePassword", function (req, res) {
   res.sendFile(path.join(__dirname + "/change-password.html"));
 });
+
+app.get("/profile", function (req, res) {
+    var dataToSend = {'firstname':User.firstName, 'lastname':User.lastName, 'phonenumber':User.phoneNumber,
+     'country': User.Country, 'email':User.email, 'city':User.city, 'street':User.street, 'zipcode':User.zipCode};
+    console.log(req.cookies);
+    res.json(dataToSend);
+});
+
 
 app.post("/login", async (req, res) => {
   var loginUser = req.body.loginUser;

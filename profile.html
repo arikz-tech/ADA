@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>Profile details</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -154,44 +154,69 @@
                     <div class="row" style="margin-top: 100px;">
                         <div class="col">
                             <h5>First name</h5>
-                            <span>test</span>
+                            <span id="firstname">test</span>
                         </div>
                         <div class="col">
                             <h5>Last name</h5>
-                            <span>test</span>
+                            <span id="lastname">test</span>
                         </div>
                         <div class="col">
                             <h5>Phone number</h5>
-                            <span>test</span>
+                            <span id="phonenumber">test</span>
                         </div>
                         <div class="col">
                             <h5>Country</h5>
-                            <span>IL</span>
+                            <span id="country">IL</span>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 50px;">
                         <div class="col">
                             <h5>Email</h5>
-                            <span>test</span>
+                            <span id="email">test</span>
                         </div>
                         <div class="col">
                             <h5>City</h5>
-                            <span>test</span>
+                            <span id="city">test</span>
                         </div>
                         <div class="col">
                             <h5>Street</h5>
-                            <span>test</span>
+                            <span id="street">test</span>
                         </div>
                         <div class="col">
                             <h5>Zip code</h5>
-                            <span>IL</span>
+                            <span id="zipcode">IL</span>
                         </div>
                     </div>
 
-                    <div style="margin-top: 50px;">
+                    <hr style="margin-top: 50px;" />  
+                    <div class="form-group">
+                    <div style="margin-trim: 50px;">
                         <h1 style="color:black">Change Password</h1>
                     </div>
-
+                    </div>
+                    <form class="user" id="register-form">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="oldpassword"
+                                    placeholder="Old password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                <input type="password" class="form-control position-relative" id="newpassword"
+                                    placeholder="New password">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="password" class="form-control" id="confirmpassword"
+                                    placeholder="Confirm password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                        <input type="button" class="btn btn-secondary btn-block" id="changepass" value="Change password"><br>
+                        </div>
+                    </div>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -239,6 +264,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="./js/profile-logic.js"></script>
 
 </body>
 
