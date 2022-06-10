@@ -1,4 +1,4 @@
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com/";
 const { createHash } = require("crypto");
 
 var express = require("express");
@@ -8,7 +8,7 @@ var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
 const fetch = require("node-fetch");
-var cookieParser = require('cookie-parser');
+var cookieParser = require("cookie-parser");
 
 waitForVerifyUsers = [];
 resetPasswordUsers = [];
@@ -113,14 +113,21 @@ app.get("/changePassword", function (req, res) {
 });
 
 app.get("/profile", async function (req, res) {
-    var userEmail = req.cookies["email"];
-    var result = await User.findOne({ email: userEmail });
-    var dataToSend = {'firstname':result.firstname, 'lastname':result.lastname, 'phonenumber':result.phoneNumber,
-     'country': result.Country, 'email':result.email, 'city':result.city, 'street':result.street, 'zipcode':result.zipCode};
+  var userEmail = req.cookies["email"];
+  var result = await User.findOne({ email: userEmail });
+  var dataToSend = {
+    firstname: result.firstname,
+    lastname: result.lastname,
+    phonenumber: result.phoneNumber,
+    country: result.Country,
+    email: result.email,
+    city: result.city,
+    street: result.street,
+    zipcode: result.zipCode,
+  };
 
-    res.json(dataToSend);
+  res.json(dataToSend);
 });
-
 
 app.post("/login", async (req, res) => {
   var loginUser = req.body.loginUser;
