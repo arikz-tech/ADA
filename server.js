@@ -112,19 +112,12 @@ app.get("/changePassword", function (req, res) {
   res.sendFile(path.join(__dirname + "/change-password.html"));
 });
 
-app.get("/profile", function (req, res) {
+app.get("/profile", async function (req, res) {
     var userEmail = req.cookies["email"];
-    console.log(userEmail);
-
-    var result = User.findOne({ email: userEmail });
-    if (!result) {
-        res.send({ message: "User not found" });
-        return;
-    }
-
-    var dataToSend = {'firstname':result.firstName, 'lastname':result.lastName, 'phonenumber':result.phoneNumber,
+    var result = await User.findOne({ email: userEmail });
+    var dataToSend = {'firstname':result.firstname, 'lastname':result.lastname, 'phonenumber':result.phoneNumber,
      'country': result.Country, 'email':result.email, 'city':result.city, 'street':result.street, 'zipcode':result.zipCode};
-    console.log(result.json);
+
     res.json(dataToSend);
 });
 
