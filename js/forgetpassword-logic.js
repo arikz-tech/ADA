@@ -1,4 +1,4 @@
-const url = "https://ada-electric-shop.herokuapp.com/";
+const url = "https://ada-electric-shop.herokuapp.com";
 
 $("#change-password-form").submit((e) => {
   e.preventDefault();

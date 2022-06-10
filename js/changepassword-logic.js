@@ -1,4 +1,4 @@
-const url = "https://ada-electric-shop.herokuapp.com/";
+const url = "https://ada-electric-shop.herokuapp.com";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;

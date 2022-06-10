@@ -1,4 +1,4 @@
-const url = "https://ada-electric-shop.herokuapp.com/";
+const url = "https://ada-electric-shop.herokuapp.com";
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();

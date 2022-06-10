@@ -1,4 +1,4 @@
-const url = "https://ada-electric-shop.herokuapp.com/";
+const url = "https://ada-electric-shop.herokuapp.com";
 const { createHash } = require("crypto");
 
 var express = require("express");

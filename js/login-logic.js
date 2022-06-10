@@ -1,4 +1,4 @@
-const url = "https://ada-electric-shop.herokuapp.com/";
+const url = "https://ada-electric-shop.herokuapp.com";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var checkbox = document.getElementById("customCheck");
