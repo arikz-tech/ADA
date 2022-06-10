@@ -47,6 +47,7 @@ $("#login-form").submit((e) => {
     }
   
     setCookie("connected", "true", 5);
+    setCookie("email", user.email, 5);
     setCookie("firstname", user.firstname, 5);
     setCookie("lastname", user.lastname, 5);
 

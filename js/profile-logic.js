@@ -6,6 +6,7 @@ function loadData()
         method: 'get',
         dataType: 'json',
         success: function (data){
+            alert(data.json);
             data = $.parseJSON(data);
             alert(data);
         }

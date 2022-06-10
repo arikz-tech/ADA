@@ -113,14 +113,18 @@ app.get("/changePassword", function (req, res) {
 });
 
 app.get("/profile", function (req, res) {
-    User.findOne({ email: email }).then((result) => {
-    if (result === null) {
-      res.send({ message: "User not found", user: undefined });
-      return;
+    var userEmail = req.cookies["email"];
+    console.log(userEmail);
+
+    var result = User.findOne({ email: userEmail });
+    if (!result) {
+        res.send({ message: "User not found" });
+        return;
     }
-    var dataToSend = {'firstname':User.firstName, 'lastname':User.lastName, 'phonenumber':User.phoneNumber,
-     'country': User.Country, 'email':User.email, 'city':User.city, 'street':User.street, 'zipcode':User.zipCode};
-    console.log(req.cookies);
+
+    var dataToSend = {'firstname':result.firstName, 'lastname':result.lastName, 'phonenumber':result.phoneNumber,
+     'country': result.Country, 'email':result.email, 'city':result.city, 'street':result.street, 'zipcode':result.zipCode};
+    console.log(result.json);
     res.json(dataToSend);
 });
 
