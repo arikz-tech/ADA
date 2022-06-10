@@ -190,35 +190,170 @@
                     <div style="float: right; margin-top:50px; margin-right: 100px;">
                         <span style="color: blue; font-size: 18px;">Update</span>
                     </div>
-                    <hr style="margin-top: 100px;" />  
-                    <div class="form-group">
-                    <div style="margin-trim: 50px;">
+                    <hr style="margin-top: 100px;" />
+
+                    <div class="form">
                         <h1 style="color:black">Change Password</h1>
-                    </div>
-                    </div>
-                    <form class="user" id="register-form">
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <input type="password" class="form-control" id="oldpassword"
-                                    placeholder="Old password">
+                        <form class="user" id="changePassword-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="oldpassword"
+                                        placeholder="Old password">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-3 mb-3 mb-sm-0">
-                                <input type="password" class="form-control position-relative" id="newpassword"
-                                    placeholder="New password">
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control position-relative" id="newpassword"
+                                        placeholder="New password">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="password" class="form-control" id="confirmpassword"
+                                        placeholder="Confirm password">
+                                </div>
                             </div>
-                            <div class="col-sm-3">
-                                <input type="password" class="form-control" id="confirmpassword"
-                                    placeholder="Confirm password">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changepass" value="Change password"><br>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                        <input type="button" class="btn btn-secondary btn-block" id="changepass" value="Change password"><br>
-                        </div>
+                        </form>
                     </div>
-                    </form>
+                    <hr style="margin-top: 100px;" />
+
+                    <div class="form">
+                        <h1 style="color:black">Change Username</h1>
+                        <form method="post" action="/changeUsername" id="changeUsername-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newUsername" placeholder="New username">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeUsername" value="Change username"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <hr style="margin-top: 100px;" />
+                    <div class="form">
+                        <h1 style="color:black">Change Lastname</h1>
+                        <form method="post" action="/changeLastname" id="changeLastname-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newLastname" placeholder="New lastname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeLastname" value="Change lastname"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form">
+                        <h1 style="color:black">Change phone number</h1>
+                        <form method="post" action="/changePhonenumber" id="changePhone-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newPhonenumber" placeholder="New phone number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changePhonenumber" value="Change phone number"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form">
+                        <h1 style="color:black">Change Country</h1>
+                        <form method="post" action="/changeCountry" id="changeCountry-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newCountry" placeholder="New country">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeCountry" value="Change country"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form">
+                        <h1 style="color:black">Change Email</h1>
+                        <form method="post" action="/changeEmail" id="changeEmail-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newEmail" placeholder="New Email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="submit" class="btn btn-secondary btn-block" id="changeEmail" value="Change email"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form" id="changeCity">
+                        <h1 style="color:black">Change City</h1>
+                        <form method="post" action="/changeCity" id="changeCity-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newCity" placeholder="New City">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeCity" value="Change city"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form" id="changeStreet">
+                        <h1 style="color:black">Change Street</h1>
+                        <form method="post" action="/changeStreet" id="changeStreet-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newStreet" placeholder="New Street">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeStreet" value="Change street"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr style="margin-top: 100px;" />
+                    <div class="form">
+                        <h1 style="color:black">Change Zipcode</h1>
+                        <form method="post" action="/changeZipcode" id="changeZipcode-form">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="form-control" class="form-control position-relative" id="newZipcode" placeholder="New Zipcode">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="button" class="btn btn-secondary btn-block" id="changeZipcode" value="Change zipcode"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
