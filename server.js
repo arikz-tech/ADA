@@ -113,6 +113,11 @@ app.get("/changePassword", function (req, res) {
 });
 
 app.get("/profile", function (req, res) {
+    User.findOne({ email: email }).then((result) => {
+    if (result === null) {
+      res.send({ message: "User not found", user: undefined });
+      return;
+    }
     var dataToSend = {'firstname':User.firstName, 'lastname':User.lastName, 'phonenumber':User.phoneNumber,
      'country': User.Country, 'email':User.email, 'city':User.city, 'street':User.street, 'zipcode':User.zipCode};
     console.log(req.cookies);
