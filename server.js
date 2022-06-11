@@ -1,4 +1,5 @@
-const url = "https://ada-electric-shop.herokuapp.com";
+//const url = "https://ada-electric-shop.herokuapp.com";
+const url = "http://localhost:8080";
 
 const { createHash } = require("crypto");
 
@@ -387,14 +388,14 @@ app.get("/updateEmail", async (req, res) => {
       return user.key;
     })
     .indexOf(token);
-  waitForEmailChangeVerifyUsers.splice(removeIndex, 1);
-
   User.updateOne(
-    { email: removeIndex.oldMail },
-    { email: removeIndex.newMail },
+    { email: waitForEmailChangeVerifyUsers[removeIndex].value.oldMail },
+    { email: waitForEmailChangeVerifyUsers[removeIndex].value.newMail },
     { multi: true },
     (err, numberAffected) => {}
   );
+  waitForEmailChangeVerifyUsers.splice(removeIndex, 1);
+  res.send("email successfully changed");
 });
 
 app.post("/profileUpdate", async (req, res) => {
@@ -427,6 +428,10 @@ app.post("/profileUpdate", async (req, res) => {
               console.log("Email sent: " + info.response);
             }
           });
+          res.send({
+            message: "Success, mail has changed",
+            emailChanged: true,
+          });
         }
       } else {
         updateFields[key] = value;
@@ -454,7 +459,7 @@ app.post("/profileUpdate", async (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
-  res.send("Success");
+  res.send({ message: "Success", emailChanged: false });
 });
 
 app.post("/forgotPasswordUpdate", function (req, res) {
@@ -543,6 +548,38 @@ app.post("/updatePassword", function (req, res) {
 app.get("*", function (req, res) {
   res.redirect("/404.html");
 });
+
+if (port !== 8080) {
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: "arikz15@gmail.com",
+    subject: "Connected to herouku",
+    text: "meow",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+} else {
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: "arikz15@gmail.com",
+    subject: "Connected localy",
+    text: "meow",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+}
 
 app.listen(port);
 console.log("Server started! At " + url);

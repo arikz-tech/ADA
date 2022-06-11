@@ -1,4 +1,5 @@
-const url = "https://ada-electric-shop.herokuapp.com";
+//const url = "https://ada-electric-shop.herokuapp.com";
+const url = "http://localhost:8080";
 
 if (getCookie("connected") === "false") {
   window.location.href = url + "/log-in";
@@ -55,6 +56,11 @@ $("#confirmButton").click(() => {
   var connectedEmail = getCookie("email");
   $.post(url + "/profileUpdate", { profileFields, connectedEmail }).done(
     (data, status) => {
+      if (data.emailChanged) {
+        alert("Changing mail, require to re-login");
+        setCookie("connected", "false", 5);
+        window.location.href = url + "/log-in";
+      }
       $.post(url + "/profileFields", { email: getCookie("email") }).done(
         (data, status) => {
           $("#firstname").text(data.firstname);
@@ -163,4 +169,11 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
