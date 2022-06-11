@@ -387,7 +387,7 @@ app.get("/updateEmail", async (req, res) => {
       return user.key;
     })
     .indexOf(token);
-  waitForVerifyUsers.splice(removeIndex, 1);
+  waitForEmailChangeVerifyUsers.splice(removeIndex, 1);
 
   User.updateOne(
     { email: removeIndex.oldMail },
