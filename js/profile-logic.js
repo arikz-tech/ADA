@@ -1,6 +1,7 @@
 $("#changepass").click(() => {
   var passwordInput = $("#newpassword").val();
   var rePasswordInput = $("#confirmpassword").val();
+  var password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;
 
   if (!passwordInput.match(password_regex)) {
     $("#error-msg-change-password").text(
