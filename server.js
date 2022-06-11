@@ -407,6 +407,7 @@ app.post("/profileUpdate", async (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
+  res.send("Success");
 });
 
 app.post("/forgotPasswordUpdate", function (req, res) {
