@@ -415,19 +415,44 @@ app.post("/forgotPasswordUpdate", function (req, res) {
 });
 
 app.post("/updatePassword", function (req, res) {
-  var password = req.body.parameters.password;
-  var connectedEmail = req.body.parameters.email;
+  var oldPassword = req.body.oldPassword;
+  var connectedEmail = req.body.email;
+  var password = req.body.password;
 
-  User.updateOne(
-    { email: connectedEmail },
-    { password: createHash("sha256").update(password).digest("hex") },
-    { multi: true },
-    (err, numberAffected) => {}
-  );
+  User.findOne({ email: connectedEmail }).then((result) => {
+    var hashOldPassword = createHash("sha256")
+      .update(oldPassword)
+      .digest("hex");
 
-  res.send("Changed");
+    if (hashOldPassword !== result.password) {
+      res.send({ message: "Old Password is incorrect", is_pass: false });
+      return;
+    }
 
-  //node mailer chnage password sent email
+    User.updateOne(
+      { email: connectedEmail },
+      { password: createHash("sha256").update(password).digest("hex") },
+      { multi: true },
+      (err, numberAffected) => {}
+    );
+
+    var mailOptions = {
+      from: "adaserver2022@yahoo.com",
+      to: connectedEmail,
+      subject: "password updated",
+      text: "You password has changed ",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+    res.send({ message: "Password has changed", is_pass: true });
+  });
 });
 
 app.get("*", function (req, res) {

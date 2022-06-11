@@ -1,6 +1,7 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
 $("#changepass").click(() => {
+  var oldPasswordInput = $("#oldpassword").val();
   var passwordInput = $("#newpassword").val();
   var rePasswordInput = $("#confirmpassword").val();
   var password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;
@@ -10,21 +11,31 @@ $("#changepass").click(() => {
     $("#error-msg-change-password").text(
       "Password must be at least 6 characters long and include at least 1 number"
     );
+    alert("password regex problem");
     return;
   }
 
   if (passwordInput != rePasswordInput) {
     $("#error-msg-change-password").text("Passwords doesn't match");
+    alert("password not match");
     return;
   }
 
   var parameters = {
     password: passwordInput,
+    oldPassword: oldPasswordInput,
     email: getCookie("email"),
   };
 
   $.post(url + "/updatePassword", parameters).done((data, status) => {
-    alert("data: " + data + "status: " + status);
+    alert(
+      "message: " +
+        data.message +
+        " is pass: " +
+        data.is_pass +
+        " status: " +
+        status
+    );
   });
 });
 
