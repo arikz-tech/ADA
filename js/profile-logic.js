@@ -1,3 +1,5 @@
+const url = "https://ada-electric-shop.herokuapp.com";
+
 $("#changepass").click(() => {
   var passwordInput = $("#newpassword").val();
   var rePasswordInput = $("#confirmpassword").val();
