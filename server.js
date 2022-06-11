@@ -100,6 +100,10 @@ app.get("/log-in", function (req, res) {
   res.sendFile(path.join(__dirname + "/login.html"));
 });
 
+app.get("/privacy", function (req, res) {
+  res.sendFile(path.join(__dirname + "/privacy-policy.pdf"));
+});
+
 app.get("/sign-up", function (req, res) {
   res.sendFile(path.join(__dirname + "/sign-up.html"));
 });
