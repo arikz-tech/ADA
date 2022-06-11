@@ -5,6 +5,11 @@ $.post(url + "/profileFields", { email: getCookie("email") }).done(
     $("#firstname").text(data.firstname);
     $("#lastname").text(data.lastname);
     $("#email").text(data.email);
+    $("#phonenumber").text(data.phoneNumber);
+    $("#country").text(data.Country);
+    $("#city").text(data.city);
+    $("#street").text(data.street);
+    $("#zipcode").text(data.zipCode);
   }
 );
 
