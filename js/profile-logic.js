@@ -1,5 +1,7 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
+alert(getCookie("email"));
+
 if (getCookie("connected") === "false") {
   window.location.href = url + "/log-in";
 } else {
