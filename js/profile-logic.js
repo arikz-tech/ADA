@@ -43,7 +43,7 @@ $("#confirmButton").click(() => {
     street: $("#streetInput").val(),
     zipcode: $("#zipcodeInput").val(),
   };
-  var connectedEmail = "arikz15@gmail.com";
+  var connectedEmail = getCoockie("email");
   $.post(url + "/profileUpdate", { profileFields, connectedEmail }).done(
     (data, status) => {}
   );
