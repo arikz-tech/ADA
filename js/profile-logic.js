@@ -54,7 +54,7 @@ $("#confirmButton").click(() => {
     street: $("#streetInput").val(),
     zipcode: $("#zipcodeInput").val(),
   };
-  var connectedEmail = getCoockie("email");
+  var connectedEmail = getCookie("email");
   $.post(url + "/profileUpdate", { profileFields, connectedEmail }).done(
     (data, status) => {}
   );
