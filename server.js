@@ -415,8 +415,8 @@ app.post("/forgotPasswordUpdate", function (req, res) {
 });
 
 app.post("/updatePassword", function (req, res) {
-  var password = req.body.password;
-  var connectedEmail = req.body.email;
+  var password = req.body.parameters.password;
+  var connectedEmail = req.body.parameters.email;
 
   User.updateOne(
     { email: connectedEmail },
