@@ -13,6 +13,7 @@ var cookieParser = require("cookie-parser");
 
 waitForVerifyUsers = [];
 resetPasswordUsers = [];
+waitForEmailChangeVerifyUsers = [];
 
 var transporter = nodemailer.createTransport({
   service: "yahoo",
@@ -379,15 +380,61 @@ app.post("/profileFields", async (req, res) => {
   });
 });
 
+app.get("/updateEmail", async (req, res) => {
+  var token = req.query.token;
+  var removeIndex = waitForEmailChangeVerifyUsers
+    .map((user) => {
+      return user.key;
+    })
+    .indexOf(token);
+  waitForVerifyUsers.splice(removeIndex, 1);
+
+  User.updateOne(
+    { email: removeIndex.oldMail },
+    { email: removeIndex.newMail },
+    { multi: true },
+    (err, numberAffected) => {}
+  );
+});
+
 app.post("/profileUpdate", async (req, res) => {
   var updateFields = {};
+  var connectedEmail = req.body.connectedEmail;
   for (let [key, value] of Object.entries(req.body.profileFields)) {
     if (value.length !== 0) {
-      updateFields[key] = value;
+      if (key === "email") {
+        if (value !== connectedEmail) {
+          var oldMail = connectedEmail;
+          var newMail = value;
+          var token = createHash("sha256").update(connectedEmail).digest("hex");
+          var link = url + "/updateEmail?token=" + token;
+          waitForEmailChangeVerifyUsers.push({
+            key: token,
+            value: { newMail: newMail, oldMail: oldMail },
+          });
+
+          var mailOptions = {
+            from: "adaserver2022@yahoo.com",
+            to: connectedEmail,
+            subject: "Profile email change",
+            text: "In order to verify you email click here: " + link,
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+      } else {
+        updateFields[key] = value;
+      }
     }
   }
   User.updateOne(
-    { email: req.body.connectedEmail },
+    { email: connectedEmail },
     updateFields,
     { multi: true },
     (err, numberAffected) => {}
@@ -395,7 +442,7 @@ app.post("/profileUpdate", async (req, res) => {
 
   var mailOptions = {
     from: "adaserver2022@yahoo.com",
-    to: req.body.connectedEmail,
+    to: connectedEmail,
     subject: "Profile updated",
     text: "You profile has been updated ",
   };

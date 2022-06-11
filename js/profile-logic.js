@@ -73,7 +73,7 @@ $("#confirmButton").click(() => {
           $("#countryInput").val(data.country);
           $("#cityInput").val(data.city);
           $("#streetInput").val(data.street);
-          $("#zipcode").val(data.zipcode);
+          $("#zipcodeInput").val(data.zipcode);
           $("#firstnameInput").hide();
           $("#lastnameInput").hide();
           $("#emailInput").hide();
