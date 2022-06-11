@@ -104,8 +104,8 @@ app.get("/privacy", function (req, res) {
   res.sendFile(path.join(__dirname + "/privacy-policy.pdf"));
 });
 
-app.get("/terms-of-conditions", function (req, res) {
-  res.sendFile(path.join(__dirname + "/terms-of-conditions.pdf"));
+app.get("/terms-of-use", function (req, res) {
+  res.sendFile(path.join(__dirname + "/terms-of-use.pdf"));
 });
 
 app.get("/sign-up", function (req, res) {
