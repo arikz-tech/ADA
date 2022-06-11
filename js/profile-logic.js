@@ -1,5 +1,32 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
+$("#firstnameInput").hide();
+$("#lastnameInput").hide();
+$("#emailInput").hide();
+$("#phoneNumberInput").hide();
+$("#countryInput").hide();
+$("#cityInput").hide();
+$("#streetInput").hide();
+$("#zipcodeInput").hide();
+
+$("#confirmButton").hide();
+$("#updateButton").show();
+
+$("#updateButton").click(() => {
+  $("#firstnameInput").show();
+  $("#lastnameInput").show();
+  $("#emailInput").show();
+  $("#phoneNumberInput").show();
+  $("#countryInput").show();
+  $("#cityInput").show();
+  $("#streetInput").show();
+  $("#zipcodeInput").show();
+  $("#confirmButton").show();
+  $("#updateButton").hide();
+});
+
+$("#confirmButton").click(() => {});
+
 $.post(url + "/profileFields", { email: getCookie("email") }).done(
   (data, status) => {
     $("#firstname").text(data.firstname);
