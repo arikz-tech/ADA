@@ -1,6 +1,6 @@
 //const url = "https://ada-electric-shop.herokuapp.com";
 const url = "http://localhost:8080";
-
+alert(process.env.PORT);
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var checkbox = document.getElementById("customCheck");

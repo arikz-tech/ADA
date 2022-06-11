@@ -38,6 +38,38 @@ app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. e
 app.use(bodyParser.json()); //for parsing json objects
 app.use(cookieParser());
 
+if (port !== 8080) {
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: "arikz15@gmail.com",
+    subject: "Connected to herouku",
+    text: "meow",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+} else {
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: "arikz15@gmail.com",
+    subject: "Connected localy",
+    text: "meow",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+}
+
 const pcode_schema = new mongoose.Schema({
   promo_code: {
     type: String,
@@ -548,38 +580,6 @@ app.post("/updatePassword", function (req, res) {
 app.get("*", function (req, res) {
   res.redirect("/404.html");
 });
-
-if (port !== 8080) {
-  var mailOptions = {
-    from: "adaserver2022@yahoo.com",
-    to: "arikz15@gmail.com",
-    subject: "Connected to herouku",
-    text: "meow",
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-} else {
-  var mailOptions = {
-    from: "adaserver2022@yahoo.com",
-    to: "arikz15@gmail.com",
-    subject: "Connected localy",
-    text: "meow",
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-}
 
 app.listen(port);
 console.log("Server started! At " + url);
