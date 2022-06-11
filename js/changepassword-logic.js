@@ -28,7 +28,7 @@ $("#updateButton").click(() => {
     token: urlParams.get("token"),
   };
 
-  $.post(url + "/updatePassword", parameters).done((data, status) => {
+  $.post(url + "/forgotPasswordUpdate", parameters).done((data, status) => {
     $("#passwordInput").hide();
     $("#rePasswordInput").hide();
     $("#updateButton").hide();

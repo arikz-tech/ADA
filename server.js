@@ -388,7 +388,7 @@ app.post("/forgotPassword", async (req, res) => {
   return;
 });
 
-app.post("/updatePassword", function (req, res) {
+app.post("/forgotPasswordUpdate", function (req, res) {
   var token = req.body.token;
   var password = req.body.password;
 
@@ -412,6 +412,20 @@ app.post("/updatePassword", function (req, res) {
     .indexOf(token);
   resetPasswordUsers.splice(removeIndex, 1);
   res.send("Password Successfully Changed");
+});
+
+app.post("/updatePassword", function (req, res) {
+  var password = req.body.password;
+  var connectedEmail = req.body.email;
+
+  User.updateOne(
+    { email: connectedEmail },
+    { password: createHash("sha256").update(password).digest("hex") },
+    { multi: true },
+    (err, numberAffected) => {}
+  );
+
+  //node mailer chnage password sent email
 });
 
 app.get("*", function (req, res) {
