@@ -2,7 +2,9 @@ const url = "https://ada-electric-shop.herokuapp.com";
 
 $.post(url + "/profileFields", { email: getCookie("email") }).done(
   (data, status) => {
-    alert(data + " " + status);
+    $("#firstname").text(data.firstname);
+    $("#lastname").text(data.lastname);
+    $("#email").text(data.email);
   }
 );
 

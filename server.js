@@ -391,7 +391,7 @@ app.post("/forgotPassword", async (req, res) => {
 app.post("/profileFields", async (req, res) => {
   var emailInput = req.body.email;
   User.findOne({ email: emailInput }).then((result) => {
-    res.send(result.firstname);
+    res.send(result);
   });
 });
 
