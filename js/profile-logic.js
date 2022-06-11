@@ -65,20 +65,20 @@ $.post(url + "/profileFields", { email: getCookie("email") }).done(
     $("#firstname").text(data.firstname);
     $("#lastname").text(data.lastname);
     $("#email").text(data.email);
-    $("#phonenumber").text(data.phoneNumber);
-    $("#country").text(data.Country);
+    $("#phonenumber").text(data.phonenumber);
+    $("#country").text(data.country);
     $("#city").text(data.city);
     $("#street").text(data.street);
-    $("#zipcode").text(data.zipCode);
+    $("#zipcode").text(data.zipcode);
 
     $("#firstnameInput").val(data.firstname);
     $("#lastnameInput").val(data.lastname);
     $("#emailInput").val(data.email);
-    $("#phoneNumberInput").val(data.phoneNumber);
-    $("#countryInput").val(data.Country);
+    $("#phoneNumberInput").val(data.phonenumber);
+    $("#countryInput").val(data.country);
     $("#cityInput").val(data.city);
     $("#streetInput").val(data.street);
-    $("#zipcode").val(data.zipCode);
+    $("#zipcode").val(data.zipcode);
   }
 );
 
