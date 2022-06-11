@@ -1,5 +1,4 @@
-//const url = "https://ada-electric-shop.herokuapp.com";
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com";
 
 if (getCookie("connected") === "false") {
   window.location.href = url + "/log-in";
