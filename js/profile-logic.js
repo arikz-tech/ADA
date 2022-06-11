@@ -23,6 +23,14 @@ $("#updateButton").click(() => {
   $("#zipcodeInput").show();
   $("#confirmButton").show();
   $("#updateButton").hide();
+  $("#firstname").hide();
+  $("#lastname").hide();
+  $("#email").hide();
+  $("#phonenumber").hide();
+  $("#country").hide();
+  $("#city").hide();
+  $("#street").hide();
+  $("#zipcode").hide();
 });
 
 $("#confirmButton").click(() => {});
@@ -36,6 +44,15 @@ $.post(url + "/profileFields", { email: getCookie("email") }).done(
     $("#country").text(data.Country);
     $("#city").text(data.city);
     $("#street").text(data.street);
+    $("#zipcode").text(data.zipCode);
+
+    $("#firstnameInput").text(data.firstname);
+    $("#lastnameInput").text(data.lastname);
+    $("#emailInput").text(data.email);
+    $("#phoneNumberInput").text(data.phoneNumber);
+    $("#countryInput").text(data.Country);
+    $("#cityInput").text(data.city);
+    $("#streetInput").text(data.street);
     $("#zipcode").text(data.zipCode);
   }
 );
