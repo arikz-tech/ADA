@@ -67,10 +67,10 @@ const userSchema = new mongoose.Schema({
   promocode: {
     type: String,
   },
-  phoneNumber: {
+  phonenumber: {
     type: String,
   },
-  Country: {
+  country: {
     type: String,
   },
   city: {
@@ -79,13 +79,13 @@ const userSchema = new mongoose.Schema({
   street: {
     type: String,
   },
-  zipCode: {
+  zipcode: {
     type: String,
   },
-  Spare1: {
+  spare1: {
     type: String,
   },
-  Spare2: {
+  spare2: {
     type: String,
   },
 });
