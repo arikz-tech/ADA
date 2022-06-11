@@ -1,4 +1,6 @@
-const url = "https://ada-electric-shop.herokuapp.com";
+//const url = "https://ada-electric-shop.herokuapp.com";
+const url = "http://localhost:8080";
+
 const { createHash } = require("crypto");
 
 var express = require("express");
@@ -118,23 +120,6 @@ app.get("/dashboard", function (req, res) {
 
 app.get("/changePassword", function (req, res) {
   res.sendFile(path.join(__dirname + "/change-password.html"));
-});
-
-app.get("/profile", async function (req, res) {
-  var userEmail = req.cookies["email"];
-  var result = await User.findOne({ email: userEmail });
-  var dataToSend = {
-    firstname: result.firstname,
-    lastname: result.lastname,
-    phonenumber: result.phoneNumber,
-    country: result.Country,
-    email: result.email,
-    city: result.city,
-    street: result.street,
-    zipcode: result.zipCode,
-  };
-
-  res.json(dataToSend);
 });
 
 app.post("/login", async (req, res) => {
@@ -392,6 +377,36 @@ app.post("/profileFields", async (req, res) => {
   var emailInput = req.body.email;
   User.findOne({ email: emailInput }).then((result) => {
     res.send(result);
+  });
+});
+
+app.post("/profileUpdate", async (req, res) => {
+  var updateFields = {};
+  for (let [key, value] of Object.entries(req.body.profileFields)) {
+    if (value.length !== 0) {
+      updateFields[key] = value;
+    }
+  }
+  User.updateOne(
+    { email: req.body.connectedEmail },
+    updateFields,
+    { multi: true },
+    (err, numberAffected) => {}
+  );
+
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: req.body.connectedEmail,
+    subject: "Profile updated",
+    text: "You profile has been updated ",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
   });
 });
 

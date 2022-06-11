@@ -1,4 +1,5 @@
-const url = "https://ada-electric-shop.herokuapp.com";
+//const url = "https://ada-electric-shop.herokuapp.com";
+const url = "http://localhost:8080";
 
 $("#firstnameInput").hide();
 $("#lastnameInput").hide();
@@ -8,7 +9,6 @@ $("#countryInput").hide();
 $("#cityInput").hide();
 $("#streetInput").hide();
 $("#zipcodeInput").hide();
-
 $("#confirmButton").hide();
 $("#updateButton").show();
 
@@ -33,7 +33,22 @@ $("#updateButton").click(() => {
   $("#zipcode").hide();
 });
 
-$("#confirmButton").click(() => {});
+$("#confirmButton").click(() => {
+  profileFields = {
+    firstname: $("#firstnameInput").val(),
+    lastname: $("#lastnameInput").val(),
+    email: $("#emailInput").val(),
+    phoneNumber: $("#phoneNumberInput").val(),
+    country: $("#countryInput").val(),
+    city: $("#cityInput").val(),
+    street: $("#streetInput").val(),
+    zipcode: $("#zipcodeInput").val(),
+  };
+  var connectedEmail = "arikz15@gmail.com";
+  $.post(url + "/profileUpdate", { profileFields, connectedEmail }).done(
+    (data, status) => {}
+  );
+});
 
 $.post(url + "/profileFields", { email: getCookie("email") }).done(
   (data, status) => {
