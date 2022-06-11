@@ -4,6 +4,7 @@ $("#changepass").click(() => {
   var passwordInput = $("#newpassword").val();
   var rePasswordInput = $("#confirmpassword").val();
   var password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}/;
+  alert("are you sure?");
 
   if (!passwordInput.match(password_regex)) {
     $("#error-msg-change-password").text(
@@ -22,7 +23,9 @@ $("#changepass").click(() => {
     email: getCookie("email"),
   };
 
-  $.post(url + "/updatePassword", parameters).done((data, status) => {});
+  $.post(url + "/updatePassword", parameters).done((data, status) => {
+    alert("data: " + data + "status: " + status);
+  });
 });
 
 function getCookie(cname) {

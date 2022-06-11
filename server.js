@@ -425,6 +425,8 @@ app.post("/updatePassword", function (req, res) {
     (err, numberAffected) => {}
   );
 
+  res.send("Changed");
+
   //node mailer chnage password sent email
 });
 
