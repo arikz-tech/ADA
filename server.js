@@ -388,6 +388,13 @@ app.post("/forgotPassword", async (req, res) => {
   return;
 });
 
+app.post("/profileFields", async (req, res) => {
+  var emailInput = req.body.email;
+  User.findOne({ email: emailInput }).then((result) => {
+    res.send(result);
+  });
+});
+
 app.post("/forgotPasswordUpdate", function (req, res) {
   var token = req.body.token;
   var password = req.body.password;
@@ -411,6 +418,22 @@ app.post("/forgotPasswordUpdate", function (req, res) {
     })
     .indexOf(token);
   resetPasswordUsers.splice(removeIndex, 1);
+
+  var mailOptions = {
+    from: "adaserver2022@yahoo.com",
+    to: user.value.email,
+    subject: "password updated",
+    text: "You password has changed ",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+
   res.send("Password Successfully Changed");
 });
 
