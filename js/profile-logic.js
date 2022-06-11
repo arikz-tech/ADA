@@ -46,14 +46,14 @@ $.post(url + "/profileFields", { email: getCookie("email") }).done(
     $("#street").text(data.street);
     $("#zipcode").text(data.zipCode);
 
-    $("#firstnameInput").text(data.firstname);
-    $("#lastnameInput").text(data.lastname);
-    $("#emailInput").text(data.email);
-    $("#phoneNumberInput").text(data.phoneNumber);
-    $("#countryInput").text(data.Country);
-    $("#cityInput").text(data.city);
-    $("#streetInput").text(data.street);
-    $("#zipcode").text(data.zipCode);
+    $("#firstnameInput").val(data.firstname);
+    $("#lastnameInput").val(data.lastname);
+    $("#emailInput").val(data.email);
+    $("#phoneNumberInput").val(data.phoneNumber);
+    $("#countryInput").val(data.Country);
+    $("#cityInput").val(data.city);
+    $("#streetInput").val(data.street);
+    $("#zipcode").val(data.zipCode);
   }
 );
 
