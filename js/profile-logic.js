@@ -1,7 +1,5 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
-alert(getCookie("email"));
-
 if (getCookie("connected") === "false") {
   window.location.href = url + "/log-in";
 } else {
@@ -48,7 +46,7 @@ $("#confirmButton").click(() => {
     firstname: $("#firstnameInput").val(),
     lastname: $("#lastnameInput").val(),
     email: $("#emailInput").val(),
-    phoneNumber: $("#phoneNumberInput").val(),
+    phonenumber: $("#phoneNumberInput").val(),
     country: $("#countryInput").val(),
     city: $("#cityInput").val(),
     street: $("#streetInput").val(),
@@ -56,7 +54,47 @@ $("#confirmButton").click(() => {
   };
   var connectedEmail = getCookie("email");
   $.post(url + "/profileUpdate", { profileFields, connectedEmail }).done(
-    (data, status) => {}
+    (data, status) => {
+      $.post(url + "/profileFields", { email: getCookie("email") }).done(
+        (data, status) => {
+          $("#firstname").text(data.firstname);
+          $("#lastname").text(data.lastname);
+          $("#email").text(data.email);
+          $("#phonenumber").text(data.phonenumber);
+          $("#country").text(data.country);
+          $("#city").text(data.city);
+          $("#street").text(data.street);
+          $("#zipcode").text(data.zipcode);
+
+          $("#firstnameInput").val(data.firstname);
+          $("#lastnameInput").val(data.lastname);
+          $("#emailInput").val(data.email);
+          $("#phoneNumberInput").val(data.phonenumber);
+          $("#countryInput").val(data.country);
+          $("#cityInput").val(data.city);
+          $("#streetInput").val(data.street);
+          $("#zipcode").val(data.zipcode);
+          $("#firstnameInput").hide();
+          $("#lastnameInput").hide();
+          $("#emailInput").hide();
+          $("#phoneNumberInput").hide();
+          $("#countryInput").hide();
+          $("#cityInput").hide();
+          $("#streetInput").hide();
+          $("#zipcodeInput").hide();
+          $("#confirmButton").hide();
+          $("#updateButton").show();
+          $("#firstname").show();
+          $("#lastname").show();
+          $("#email").show();
+          $("#phonenumber").show();
+          $("#country").show();
+          $("#city").show();
+          $("#street").show();
+          $("#zipcode").show();
+        }
+      );
+    }
   );
 });
 
