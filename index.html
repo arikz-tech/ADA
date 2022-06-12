@@ -8,29 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script>
-    
-    if (getCookie("connected") === "false") {
-        window.location.href = url + "/log-in";
-    }
-
-    function getCookie(cname) {
-    let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-      </script>
-
     <title>My Webshop - Dashboard</title>
 
     <!-- Custom fonts for this template-->
