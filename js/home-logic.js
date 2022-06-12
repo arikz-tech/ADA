@@ -29,11 +29,7 @@ function getCookie(cname) {
   return "";
 }
 
-if (getCookie("connected") === "false") {
-  window.location.href = url + "/log-in";
-} else {
-  $("#homepageName").text(getCookie("firstname") + " " + getCookie("lastname"));
-  $("#logoutButton").click(() => {
-    setCookie("connected", "false", 5);
-  });
-}
+$("#homepageName").text(getCookie("firstname") + " " + getCookie("lastname"));
+$("#logoutButton").click(() => {
+  setCookie("connected", "false", 5);
+});
