@@ -50,7 +50,7 @@ $("#login-form").submit((e) => {
     setCookie("firstname", user.firstname, 5);
     setCookie("lastname", user.lastname, 5);
 
-    var isChecked = document.getElementById("customCheck").checked();
+    var isChecked = document.getElementById("customCheck").checked;
     alert(isChecked);
 
     if (isChecked) {
