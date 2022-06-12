@@ -54,9 +54,9 @@ $("#login-form").submit((e) => {
     alert(isChecked);
 
     if (isChecked) {
-      setCookie("rememberme", true, 5);
+      setCookie("rememberme", "true", 5);
     } else {
-      setCookie("rememberme", false, 5);
+      setCookie("rememberme", "false", 5);
     }
 
     window.location.href = url;
