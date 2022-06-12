@@ -52,6 +52,8 @@ $("#login-form").submit((e) => {
 
     var isChecked = $("customCheck").is(":checked");
 
+    alert(isChecked);
+
     if (isChecked) {
       setCookie("rememberme", true, 5);
     } else {
