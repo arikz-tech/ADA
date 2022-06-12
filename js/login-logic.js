@@ -1,7 +1,6 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-var checkbox = document.getElementById("customCheck");
 
 if (urlParams.has("token")) {
   alert("User successfully created");
@@ -50,6 +49,14 @@ $("#login-form").submit((e) => {
     setCookie("email", user.email, 5);
     setCookie("firstname", user.firstname, 5);
     setCookie("lastname", user.lastname, 5);
+
+    var isChecked = $("customCheck").is(":checked");
+
+    if (isChecked) {
+      setCookie("rememberme", true, 5);
+    } else {
+      setCookie("rememberme", false, 5);
+    }
 
     window.location.href = url;
     return false;
