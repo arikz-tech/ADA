@@ -28,7 +28,7 @@ function getCookie(cname) {
   }
   return "";
 }
-/*
+
 if (getCookie("connected") === "false") {
   window.location.href = url + "/log-in";
 } else {
@@ -37,4 +37,3 @@ if (getCookie("connected") === "false") {
     setCookie("connected", "false", 5);
   });
 }
-*/
