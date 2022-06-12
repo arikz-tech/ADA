@@ -1,7 +1,7 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
 window.onbeforeunload = function (e) {
-  if (!getCookie("rememberme")) {
+  if (getCookie("rememberme") === false) {
     setCookie("connected", "false", 5);
   }
 };
