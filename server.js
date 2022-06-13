@@ -1,5 +1,5 @@
-//const url = "https://ada-electric-shop.herokuapp.com";
-const url = "http://localhost:8080";
+const url = "https://ada-electric-shop.herokuapp.com";
+
 
 const { createHash } = require("crypto");
 
