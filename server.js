@@ -1,6 +1,5 @@
 const url = "https://ada-electric-shop.herokuapp.com";
 
-
 const { createHash } = require("crypto");
 
 var express = require("express");
@@ -10,7 +9,6 @@ var path = require("path");
 var bodyParser = require("body-parser"); //parse request parameters
 var nodemailer = require("nodemailer");
 const fetch = require("node-fetch");
-var cookieParser = require("cookie-parser");
 
 waitForVerifyUsers = [];
 resetPasswordUsers = [];
@@ -36,7 +34,6 @@ var db = mongoose
 app.use(express.static(__dirname)); //specifies the root directory from which to serve static assets [images, CSS files and JavaScript files]
 app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. extended: true specifies that req.body object will contain values of any type instead of just strings.
 app.use(bodyParser.json()); //for parsing json objects
-app.use(cookieParser());
 
 if (port !== 8080) {
   var mailOptions = {

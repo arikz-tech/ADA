@@ -10943,6 +10943,12 @@ form.user .btn-user {
   border-color: #e6e6e6;
 }
 
+.g-recaptcha {
+  transform:scale(0.77);
+  transform-origin:0 0;
+}
+
+
 .btn-facebook:focus, .btn-facebook.focus {
   color: #fff;
   background-color: #30497c;
